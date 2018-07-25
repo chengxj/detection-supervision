@@ -10,5 +10,10 @@ public class ApiController {
     public String testApi(){
         return "test Spring Boot api";
     }
+	
+	@RequestMapping("/")
+    public String index(){
+        return "Hello Spring Boot";
+    }
 
 }
