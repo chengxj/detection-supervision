@@ -11,8 +11,8 @@
 			<includes>
 				<include>*</include>
 				<include>conf/*</include>
-				<include>resources/static/*</include>
-				<include>resources/templates/*</include>
+				<include>resources/*</include>
+				<include>resources/**/*</include>
 				<include>lib/*</include>
 				<include>bin/*</include>
 			</includes>
