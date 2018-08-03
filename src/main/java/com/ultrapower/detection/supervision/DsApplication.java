@@ -2,7 +2,6 @@ package com.ultrapower.detection.supervision;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.apache.shiro.authc.AuthenticationToken;
 
 @SpringBootApplication
 public class DsApplication {

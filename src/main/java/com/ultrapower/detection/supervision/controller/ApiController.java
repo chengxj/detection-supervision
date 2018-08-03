@@ -7,13 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
 	
 	@RequestMapping("/api/test")
-    public String testApi(){
+    public String testApi() {
         return "test Spring Boot api";
-    }
-	
-	@RequestMapping("/")
-    public String index(){
-        return "Hello Spring Boot";
     }
 
 }
