@@ -3,7 +3,7 @@ package com.ultrapower.detection.supervision.service.auth.stateless;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 
@@ -21,10 +21,10 @@ public class StatelessAccessControlFilter extends AccessControlFilter {
 		try {
 			super.getSubject(request, response).login(token);			
 		} catch (Exception e) {
-			HttpServletResponse httpServletResponse = (HttpServletResponse)response;
-			httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			httpServletResponse.getWriter().write("login error");
-			return false;
+//			HttpServletResponse httpServletResponse = (HttpServletResponse)response;
+//			httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//			httpServletResponse.getWriter().write("login fail.");
+			return false;			
 		}
 		return true;
 	}

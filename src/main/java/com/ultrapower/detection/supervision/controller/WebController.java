@@ -18,9 +18,9 @@ public class WebController {
 	
 	@Autowired
 	AuthService authService;
-	
+
 	@RequestMapping("/")
-	public String home() {
+	public String index() {
 		return "index";
 	}
 	
