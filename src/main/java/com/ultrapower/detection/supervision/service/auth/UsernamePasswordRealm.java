@@ -1,4 +1,4 @@
-package com.ultrapower.detection.supervision.service.auth.password;
+package com.ultrapower.detection.supervision.service.auth;
 
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;

@@ -1,21 +1,17 @@
-package com.ultrapower.detection.supervision.service.auth.stateless;
+package com.ultrapower.detection.supervision.service.auth;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
-import org.apache.shiro.mgt.DefaultSubjectDAO;
-import org.apache.shiro.realm.Realm;
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.session.mgt.DefaultSessionManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.ultrapower.detection.supervision.service.auth.password.UsernamePasswordRealm;
 
 @Configuration
 public class ShiroConfiguration {
@@ -27,13 +23,12 @@ public class ShiroConfiguration {
 		factoryBean.setLoginUrl("/login");
 		factoryBean.setSuccessUrl("/");
 		factoryBean.setUnauthorizedUrl("/warn");
-		factoryBean.getFilters().put("statelessAuth", statelessAccessControlFilter());
 		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();			
+		filterChainDefinitionMap.put("/", "roles[normal]");
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/warn", "anon");
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
-		filterChainDefinitionMap.put("/**", "statelessAuth");
 		factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return factoryBean;
 	}
@@ -41,39 +36,38 @@ public class ShiroConfiguration {
 	@Bean
 	public DefaultWebSecurityManager securityManager(){
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		securityManager.setSubjectFactory(subjectFactory());
 		securityManager.setSessionManager(sessionManager());
-		List<Realm> realms = new ArrayList<Realm>();
-		realms.add(new StatelessRealm());
-		realms.add(new UsernamePasswordRealm());
-		securityManager.setRealms(realms);
-		((DefaultSessionStorageEvaluator)((DefaultSubjectDAO)securityManager.getSubjectDAO()).getSessionStorageEvaluator()).setSessionStorageEnabled(false);
+		securityManager.setRealm(userPwdRealm());
+		securityManager.setCacheManager(cacheManager());
 		return securityManager;
 	}
-		
+	
 	@Bean
-	public DefaultWebSubjectFactory subjectFactory(){
-		StatelessSubjectFactory statelessDefaultSubjectFactory = new StatelessSubjectFactory();
-		return statelessDefaultSubjectFactory;
+	public CacheManager cacheManager() {
+		CacheManager cacheManager = new MemoryConstrainedCacheManager();
+		return  cacheManager;
+		
 	}
 	
 	@Bean
 	public DefaultSessionManager sessionManager(){
 		DefaultSessionManager sessionManager = new DefaultSessionManager();
-		sessionManager.setSessionValidationSchedulerEnabled(false);
+		sessionManager.setGlobalSessionTimeout(1800000);
+		sessionManager.setSessionDAO(sessionDao());
+		sessionManager.setSessionValidationSchedulerEnabled(true);
 		return sessionManager;
 	}
 	
 	@Bean
-	public StatelessRealm statelessRealm(){
-		StatelessRealm statelessRealm = new StatelessRealm();
-		return statelessRealm;
+	public SessionDAO sessionDao() {
+		SessionDAO sessionDao = new EnterpriseCacheSessionDAO();
+		return sessionDao;
 	}
 	
-	@Bean 
-	public StatelessAccessControlFilter statelessAccessControlFilter(){
-		StatelessAccessControlFilter statelessAccessControlFilter = new StatelessAccessControlFilter();
-		return statelessAccessControlFilter;
+	@Bean
+	public UsernamePasswordRealm userPwdRealm(){
+		UsernamePasswordRealm userPwdRealm = new UsernamePasswordRealm();
+		return userPwdRealm;
 	}
 
 }
