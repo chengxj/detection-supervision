@@ -23,9 +23,9 @@ public class WebController {
 		return path;
 	}
 	
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public String home() {
-		return "index";
+		return "top-menu";
 	}
 		
 	@RequestMapping("/warn")
