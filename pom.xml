@@ -28,6 +28,7 @@
 		<pdfbox.version>2.0.11</pdfbox.version>
 		<poi.version>3.17</poi.version>
 		<jwt.version>3.4.0</jwt.version>
+		<elastic.job.version>2.1.5</elastic.job.version>
 	</properties>
 
 	<dependencies>
@@ -106,6 +107,11 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.kuhn-he</groupId>
+		    <artifactId>elastic-job-lite-spring-boot-starter</artifactId>  
+		    <version>${elastic.job.version}</version>
 		</dependency>
 	</dependencies>
 

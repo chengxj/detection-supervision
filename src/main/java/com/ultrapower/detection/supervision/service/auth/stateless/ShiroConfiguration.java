@@ -31,9 +31,10 @@ public class ShiroConfiguration {
 		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();			
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/login", "anon");
+		filterChainDefinitionMap.put("/api/test", "anon");
 		filterChainDefinitionMap.put("/warn", "anon");
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
-		filterChainDefinitionMap.put("/**", "statelessAuth");
+//		filterChainDefinitionMap.put("/**", "statelessAuth");
 		factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return factoryBean;
 	}
