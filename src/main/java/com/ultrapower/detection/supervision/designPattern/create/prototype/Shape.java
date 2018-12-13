@@ -1,7 +1,5 @@
 package com.ultrapower.detection.supervision.designPattern.create.prototype;
 
-import net.bytebuddy.implementation.bind.annotation.Super;
-
 public abstract class Shape implements Cloneable {
 	
 	private String id;
@@ -31,5 +29,4 @@ public abstract class Shape implements Cloneable {
 		return clone;
 	}
 	
-
 }
