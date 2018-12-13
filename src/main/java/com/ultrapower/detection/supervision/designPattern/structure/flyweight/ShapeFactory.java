@@ -7,7 +7,7 @@ public class ShapeFactory {
 	private static final HashMap<String, Shape> circleMap = new HashMap<>();
 	
 	public static Shape getCircle(String color) {
-		Circle circle = (Circle)circleMap.get("color");
+		Circle circle = (Circle)circleMap.get(color);
 		if (null == circle) {
 			circle = new Circle(color);
 			circleMap.put(color, circle);			
