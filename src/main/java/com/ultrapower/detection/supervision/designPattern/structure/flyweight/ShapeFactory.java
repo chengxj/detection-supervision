@@ -16,5 +16,4 @@ public class ShapeFactory {
 		return circle;
 	}
 	
-
 }
