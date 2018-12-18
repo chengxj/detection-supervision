@@ -1,15 +1,15 @@
 package com.ultrapower.detection.supervision.designPattern.behavior.command;
 
-public class BuyStock implements Order {
-	
+public class SellStock implements Order {
+
 	private Stock abcStock;
 	
-	public BuyStock(Stock abcStock) {
+	public SellStock(Stock abcStock) {
 		this.abcStock = abcStock;
 	}
-
+	
 	public void execute() {
-		abcStock.buy();
+		abcStock.sell();
 	}
 
 }
